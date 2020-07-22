@@ -23,5 +23,5 @@ $ kubectl apply -f spinnaker-cluster.yaml
 ```
 ### Install Jenkins
 ```bash
-helm upgrade --install jenkins --values jenkins-values --namespace jenkins --version 2.4.0 stable/jenkins
+helm upgrade --install jenkins --values jenkins-values.yaml --namespace jenkins --version 2.4.0 stable/jenkins
 ```

@@ -1,9 +1,12 @@
 pipeline {
-	agent any
+	agent {label 'jenkins-go'}
 	stages {
 		stage('Build') {
 			steps {
-				sh "echo Hello world"
+			    container('golang') {
+				    sh "echo Hello world"
+				    sh "go version"
+			    }
 			}
 		}
 	}
