@@ -1,12 +1,13 @@
 pipeline {
-	agent {label 'jenkins-go'}
+	agent {label 'jenkins-docker'}
 	stages {
 		stage('Build') {
 			steps {
-			    container('golang') {
+			    container('docker') {
 				    sh "echo Hello world"
-				    sh "go version"
+				    sh "docker build -t go-demo ."
 			    }
+			    
 			}
 		}
 	}
