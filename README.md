@@ -25,3 +25,15 @@ $ kubectl apply -f spinnaker-cluster.yaml
 ```bash
 helm upgrade --install jenkins --values jenkins-values.yaml --namespace jenkins --version 2.4.0 stable/jenkins
 ```
+
+### Add Kubernetes provider
+
+1. Add a kubeconfig file
+1. Create secret from the kubeconfig
+    ```
+    kubectl create secret generic kubeconfig --from-file=config=./config
+    ```
+1. Apply the spinnaker-operator with k8s provide configured. 
+   ```
+   kubectl apply -f spinnaker-cluster-k8s.yaml
+   ``` 

@@ -1,0 +1,34 @@
+apiVersion: spinnaker.io/v1alpha2
+kind: SpinnakerService
+metadata:
+  name: spinnaker
+  namespace: spinnaker-operator
+spec:
+  spinnakerConfig:
+    config:
+      providers:
+        kubernetes:
+          enabled: true
+          accounts:
+            - name: Kubernetes-dev # Account name you want Spinnaker to use to identify the deployment target
+              namespaces: [] # Change if you only want to deploy to specific namespaces
+              onlySpinnakerManaged: false
+              kubeconfigFile: kubeconfig-Kubernetes-dev
+          primaryAccount: Kubernetes-dev  # Change to a desired account from the accounts array
+      features:
+        artifacts: true # Not strictly necessary for Kubernetes but will be useful in general
+      version: 1.21.0
+      persistentStorage:
+        persistentStoreType: s3
+        s3:
+          bucket: spinbucker
+          rootFolder: front50
+          endpoint: http://minio.ns-minio:9000
+          accessKeyId: AKIAIOSFODNN7EXAMPLE
+          secretAccessKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    files:
+      kubeconfig-Kubernetes-dev: encryptedFile:k8s!n:kubeconfig!k:config
+  expose:
+    type: service
+    service:
+      type: LoadBalancer
